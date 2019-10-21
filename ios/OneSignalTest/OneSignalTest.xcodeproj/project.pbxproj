@@ -556,7 +556,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.hogelab.ios.OneSignalTest.OneSignalNotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = net.hogelab.ios.OneSignalTes.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -576,7 +576,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.hogelab.ios.OneSignalTest.OneSignalNotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = net.hogelab.ios.OneSignalTes.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -711,7 +711,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.hogelab.ios.OneSignalTest;
+				PRODUCT_BUNDLE_IDENTIFIER = net.hogelab.ios.OneSignalTes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -731,7 +731,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.hogelab.ios.OneSignalTest;
+				PRODUCT_BUNDLE_IDENTIFIER = net.hogelab.ios.OneSignalTes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
