@@ -10,10 +10,40 @@ import UIKit
 
 import OneSignal
 
+extension Notification.Name {
+    struct FxTalk {
+        struct PushNotification {
+            static let Arrived = Notification.Name("FxTalk.PushNotification.Arrived")
+        }
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    struct PushConstants {
+        static let FIELD_EVENT = "event"
+        static let FIELD_ID = "id"
+        static let FIELD_GROUP_ID = "group_id"
+        static let FIELD_JOINED_AT = "joind_at"
+
+        static let EVENT_UNKNOWN = "unknown"
+        static let EVENT_TALK = "talk"
+        static let EVENT_CHAT = "chat"
+        static let EVENT_NEWS = "news"
+    }
+
+    class PushInfo {
+        var event: String = PushConstants.EVENT_UNKNOWN
+        var id: String?
+        var groupId: String?
+        var joinedAt: String?
+    }
+
+
     var window: UIWindow?
+    
+    private(set) var pushInfo: PushInfo?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -77,45 +107,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Opened Notification: \(result!.notification!.payload.notificationID ?? "N/A")")
 
         if let additionalData = result!.notification.payload!.additionalData {
-            if let event = additionalData["event"] as? String {
-                switch event {
-                    
-                case "talk":
-                    onTalkEvent(additionalData)
-
-                case "chat":
-                    onChatEvent(additionalData)
-
-                case "news":
-                    onNewsEvent(additionalData)
-
-                default:
-                    print("Unknown event: \(event)");
+            if let event = additionalData[PushConstants.FIELD_EVENT] as? String {
+                let pushInfo = PushInfo()
+                pushInfo.event = event
+                if let id = additionalData[PushConstants.FIELD_ID] as? String {
+                    pushInfo.id = id
                 }
+                if let groupId = additionalData[PushConstants.FIELD_GROUP_ID] as? String {
+                    pushInfo.groupId = groupId
+                }
+                if let joinedAt = additionalData[PushConstants.FIELD_JOINED_AT] as? String {
+                    pushInfo.joinedAt = joinedAt
+                }
+
+                self.pushInfo = pushInfo
+
+                let center = NotificationCenter.default
+                center.post(name: Notification.Name.FxTalk.PushNotification.Arrived,
+                            object: nil)
             }
         }
     }
 
-    func onTalkEvent(_ additionalData: [AnyHashable: Any]) -> Void {
-        let id = additionalData["id"] as? String
-        let group_id = additionalData["group_id"] as? String
-        let joined_at = additionalData["joined_at"] as? String
-
-        print("onTalkEvent")
-        print("       id: \(id ?? "N/A")")
-        print(" group_id: \(group_id ?? "N/A")")
-        print("joined_at: \(joined_at ?? "N/A")")
-    }
-
-    func onChatEvent(_ additionalData: [AnyHashable: Any]) -> Void {
-        let id = additionalData["id"] as? String
-
-        print("onChatEvent")
-        print("       id: \(id ?? "N/A")")
-    }
-
-    func onNewsEvent(_ additionalData: [AnyHashable: Any]) -> Void {
-        print("onNewsEvent")
+    func clearPushInfo() -> Void {
+        self.pushInfo = nil;
     }
 
 }
